@@ -12,8 +12,6 @@
 // : v1_版本:数据库表模型对应表名配置
 // +---------------------------------
 return [
-    // 管理员表
-    'AdminTable' => 'dlth_data_admin_lists',
 	// 留言表
     'LeavingTable'  => 'data_session_leavings',
     // 留言信息表
