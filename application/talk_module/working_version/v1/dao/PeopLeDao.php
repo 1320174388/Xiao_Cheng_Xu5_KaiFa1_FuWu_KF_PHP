@@ -21,7 +21,7 @@ class PeopLeDao implements PeopLeInterface
     public function peopleSelect()
     {
         // 获取所有留言人信息
-        $list = PeopleModel::all();
+        $list = PeopleModel::order('people_status','asc')->select();
         // 判断是否有数据
         if(!$list) return returnData('error');
         // 返回正确数据
