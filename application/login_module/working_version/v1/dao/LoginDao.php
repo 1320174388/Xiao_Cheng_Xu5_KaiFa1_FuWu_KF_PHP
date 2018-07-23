@@ -32,7 +32,7 @@ class LoginDao implements LoginInterface
         // 验证数据
         if(!$user){
             return returnData('error');
-        }9
+        }
         // 返回数据格式
         return returnData('success',$user);
     }
