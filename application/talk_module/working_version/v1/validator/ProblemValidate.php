@@ -32,12 +32,12 @@ class ProblemValidate
 
         // 判断标题
         if(strlen($data['peopleName']) > 50)
-            return returnDate('error','标题过长');
+            return returnData('error','标题过长');
         //  判断内容
         if(strlen($data['messageContent'] > 2000))
-            return returnDate('error','内容不能超过2000字');
+            return returnData('error','内容不能超过2000字');
         // 返回正确格式
-        return returnDate('success',true);
+        return returnData('success',true);
     }
 
     /**
@@ -55,15 +55,15 @@ class ProblemValidate
     public function ProblemsVerification($data)
     {
         // 判断内容是否为空
-        if(!$data['messageContent']) return returnDate('error','请输入内容');
-        if(!$data['messageContent']) return returnDate('error','留言身份为空');
+        if(!$data['messageContent']) return returnData('error','请输入内容');
+        if(!$data['messageContent']) return returnData('error','留言身份为空');
 
         //  判断内容
         if(($data['messageContent']!='User')&&($data['messageContent']!='Admin'))
-            return returnDate('error','身份错误');
+            return returnData('error','身份错误');
         if(strlen($data['messageContent'] > 2000))
-            return returnDate('error','内容不能超过2000字');
+            return returnData('error','内容不能超过2000字');
         // 返回正确格式
-        return returnDate('success',true);
+        return returnData('success',true);
     }
 }
