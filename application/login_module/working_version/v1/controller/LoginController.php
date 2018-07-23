@@ -38,4 +38,26 @@ class LoginController extends Controller
         // 返回user_token数据
         return returnResponse(0,'登录成功',$data['data']);
     }
+
+    /**
+     * 名  称 : loginAdmin()
+     * 功  能 : 判断用是不是管理员
+     * 变  量 : --------------------------------------
+     * 输  入 : (string) $token => '用户身份标标识';
+     * 输  出 : {"errNum":0,"retMsg":"请求成功","retData":true}
+     * 创  建 : 2018/07/23 14:33
+     */
+    public function loginAdmin($token)
+    {
+        // 判断用户身份标识是否发送
+        if(!$token) return returnResponse(1,'请发送用户身份标识');
+        // 调用LoginService逻辑
+        $data = (new LoginService())->userAdmin($token);
+        // 验证Service逻辑层返回数据
+        if($data['msg']=='error'){
+            return returnResponse(1,$data['data']);
+        }
+        // 返回user_token数据
+        return returnResponse(0,'请求成功',$data['data']);
+    }
 }

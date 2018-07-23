@@ -16,3 +16,12 @@ Route::post(
     ':v/login_module/login_init/:code',
     'login_module/:v.controller.LoginController/loginInit'
 );
+/**
+ * 传值方式：GET
+ * 传值参数：[ :v => 版本号 ] [ :token => 用户身份标识 ]
+ * 路由功能：执行用户登录路由地址
+ */
+Route::post(
+    ':v/login_module/login_admin/:token',
+    'login_module/:v.controller.LoginController/loginAdmin'
+);

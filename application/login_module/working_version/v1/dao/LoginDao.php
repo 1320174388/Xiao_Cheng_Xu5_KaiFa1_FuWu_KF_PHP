@@ -67,4 +67,28 @@ class LoginDao implements LoginInterface
         // 返回数据格式
         return returnData('success',true);
     }
+
+    /**
+     * 名  称 : loginAdminSelect()
+     * 功  能 : 声明：获取用户数据
+     * 变  量 : --------------------------------------
+     * 输  入 : --------------------------------------
+     * 输  出 : --------------------------------------
+     * 创  建 : 2018/06/12 17:54
+     */
+    public function loginAdminSelect()
+    {
+        // 实例化用户数据模型
+        $userModel = new UserModel();
+        // 加载配置项表信息
+        $userModel->userInit();
+        // 查询用户信息
+        $user = $userModel->where('user_id',1)->find();
+        // 验证是否保存成功
+        if(!$user){
+            return returnData('error');
+        }
+        // 返回数据格式
+        return returnData('success',$user);
+    }
 }

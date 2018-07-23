@@ -31,4 +31,14 @@ interface LoginInterface{
      */
     public function loginCreate($openid);
 
+    /**
+     * 名  称 : loginAdminSelect()
+     * 功  能 : 声明：获取用户数据
+     * 变  量 : --------------------------------------
+     * 输  入 : (string) $token => '用户身份标标识';
+     * 输  出 : --------------------------------------
+     * 创  建 : 2018/06/12 17:54
+     */
+    public function loginAdminSelect($token);
+
 }

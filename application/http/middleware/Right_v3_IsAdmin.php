@@ -29,7 +29,7 @@ class Right_v3_IsAdmin
         $user  = UserModel::get(1);
         // 判断是否有权限
         if ($token!=$user['user_token']) {
-            return redirect('v3/right_module/return_right');
+            return redirect('/return');
         }
         // 执行控制器代码
         return $next($request);

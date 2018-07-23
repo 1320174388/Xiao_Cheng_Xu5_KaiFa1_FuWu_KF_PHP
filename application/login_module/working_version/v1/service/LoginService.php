@@ -77,4 +77,32 @@ class LoginService
         // 返回数据格式
         return returnData('success',$token);
     }
+
+    /**
+     * 名  称 : userAdmin()
+     * 功  能 : 判断用户是不是管理员
+     * 变  量 : --------------------------------------
+     * 输  入 : (string) $token => '用户身份标标识';
+     * 输  出 : [ 'msg' => 'success',true]
+     * 输  出 : [ 'msg' => 'error', false]
+     * 创  建 : 2018/06/13 14:29
+     */
+    public function userAdmin($token)
+    {
+        // 查看数据库是否有用户openID
+        $userInfo = (new LoginDao())->loginAdminSelect();
+
+        // 验证返回数据格式
+        if( $userInfo['msg']=='error' ) {
+            return returnData('error','没有最高管理员');
+        }
+
+        // 判断用户是不是最高管理员
+        if ($token!=$userInfo['data']['user_token']) {
+            return returnData('error',false);
+        }
+
+        // 返回数据格式
+        return returnData('success',true);
+    }
 }
