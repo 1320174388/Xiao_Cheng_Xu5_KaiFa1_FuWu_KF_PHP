@@ -25,8 +25,12 @@ class Right_v3_IsAdmin
     {
         // 获取用户标识
         $token = $request->param('token');
-        // 获取最高权限的第一个小程序用户
-        $user  = UserModel::get(1);
+        // 实例化用户数据模型
+        $userModel = new UserModel();
+        // 加载配置项表信息
+        $userModel->userInit();
+        // 查询用户信息
+        $user = $userModel->where('user_id',1)->find();
         // 判断是否有权限
         if ($token!=$user['user_token']) {
             return redirect('/return');
