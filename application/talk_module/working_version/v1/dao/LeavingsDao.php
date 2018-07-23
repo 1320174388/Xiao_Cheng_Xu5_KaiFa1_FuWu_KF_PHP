@@ -25,7 +25,6 @@ class LeavingsDao implements LeavingsInterface
         // 实例化自动model
         $LeavingModel = new LeavingModel;
         // 获取配置信息表名
-        $admin = config('v1_tableName.AdminTable');
         $leavi = config('v1_tableName.LeavingTable');
         // 处理field数据
         $string = "{$leavi}.leaving_index,";
@@ -33,10 +32,9 @@ class LeavingsDao implements LeavingsInterface
         $string.= "{$leavi}.leaving_title,";
         $string.= "{$leavi}.leaving_status,";
         $string.= "{$leavi}.leaving_time,";
-        $string.= "{$admin}.admin_name";
+        $string.= "{$leavi}.leaving_handle";
         // 获取单个用户的所有提问信息
         $list = $LeavingModel->field($string)
-            ->leftJoin($admin)
             ->where('people_index',$peopleIndex)
             ->select();
         //验证
