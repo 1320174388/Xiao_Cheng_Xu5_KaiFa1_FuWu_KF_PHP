@@ -10,7 +10,7 @@
 namespace app\login_module\working_version\v1\dao;
 use  app\login_module\working_version\v1\model\UserModel;
 
-class LoginDao implements LoginInterface
+class LoginDao
 {
     /**
      * 名  称 : loginSelect()
