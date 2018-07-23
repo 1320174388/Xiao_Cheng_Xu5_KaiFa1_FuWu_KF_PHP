@@ -75,6 +75,6 @@ class LoginService
         // 获取用户Token标识
         $token = $userInfo['data']->user_token;
         // 返回数据格式
-        return returnData('success',['token'=>$token]);
+        return returnData('success',$token);
     }
 }
