@@ -10,17 +10,17 @@
     $config = [
         'host'      => 'gz-cdb-9yvp3vjn.sql.tencentcdb.com', // 数据库地址
         'port'      => '63119',                              // 数据库端口
-        'database'  => 'shiguangyu_xm_kaifa1',               // 数据库名称
+        'database'  => 'langxue2nanfengmeilin',              // 数据库名称
         'charset'   => 'utf8',                               // 设置字符集
         'user'      => 'root',                               // 用户名称
         'password'  => 'CBBBBBEIMbc01z',                     // 用户密码
     ];
 
     $table = [
-        'replys'   => 'dlth_data_session_replys',   // 客服回复信息表
-        'people'   => 'dlth_data_session_peoples',  // 留言人信息表
-        'leavings' => 'dlth_data_session_leavings', // 留言表
-        'messages' => 'dlth_data_session_messages', // 留言信息表
+        'replys'   => 'data_session_replys',   // 客服回复信息表
+        'people'   => 'data_session_peoples',  // 留言人信息表
+        'leavings' => 'data_session_leavings', // 留言表
+        'messages' => 'data_session_messages', // 留言信息表
     ];
 
 	$date     =  date('Y-m-d H:i:s',time());

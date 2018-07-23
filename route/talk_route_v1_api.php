@@ -46,6 +46,7 @@ Route::group('v1/talk_module/', function(){
     /**
      * 传值方式：POST，  功能：添加自动回复信息接口。
      * 传值方式：GET，   功能：获取所有自动回复信息接口。
+     * 传值方式：GET，   功能：获取所有用户提问数据接口。
      * 传值方式：PUT，   功能：修改自动回复信息接口。
      * 传值方式：DELETE，功能：删除自动回复信息接口。
      * 传值方式：POST，  功能：客服回复信息接口。
@@ -58,6 +59,10 @@ Route::group('v1/talk_module/', function(){
     Route::get(
         'replys_route/:token',
         'talk_module/v1.controller.ReplysController/replysList'
+    );
+    Route::get(
+        'people_route/:token',
+        'talk_module/v1.controller.PeoplesController/peopleList'
     );
     Route::put(
         'replys_route/:token',
