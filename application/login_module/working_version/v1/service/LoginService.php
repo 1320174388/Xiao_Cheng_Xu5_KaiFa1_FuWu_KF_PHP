@@ -99,10 +99,10 @@ class LoginService
 
         // 判断用户是不是最高管理员
         if ($token!=$userInfo['data']['user_token']) {
-            return returnData('error','不是管理员');
+            return returnData('error');
         }
 
         // 返回数据格式
-        return returnData('success','最高管理员');
+        return returnData('success',true);
     }
 }
