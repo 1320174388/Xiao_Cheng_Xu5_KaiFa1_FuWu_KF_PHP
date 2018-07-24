@@ -45,7 +45,7 @@ class LoginLibrary
         $loginFile = array_key_exists('errcode',$wxResult);
 
         if($loginFile){
-            return returnData('error','请检查Code是否失效');
+            return returnData('error',$wxResult);
         }
 
         // 返回响应数据

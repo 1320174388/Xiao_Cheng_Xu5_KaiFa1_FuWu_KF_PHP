@@ -30,6 +30,7 @@ class LeavingsDao implements LeavingsInterface
         $string = "{$leavi}.leaving_index,";
         $string.= "{$leavi}.people_index,";
         $string.= "{$leavi}.leaving_title,";
+
         $string.= "{$leavi}.leaving_status,";
         $string.= "{$leavi}.leaving_time,";
         $string.= "{$leavi}.leaving_handle";
