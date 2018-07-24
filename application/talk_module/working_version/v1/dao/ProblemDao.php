@@ -49,9 +49,9 @@ class ProblemDao implements ProblemInterface
                     ->find();
             // 验证
             if($res){
-                $peopleModel->people_name   = $data['peopleName'];
-                $peopleModel->people_sex    = $data['peopleSex'];
-                $peopleModel->people_status = '1';
+                $res->people_name   = $data['peopleName'];
+                $res->people_sex    = $data['peopleSex'];
+                $res->people_status = '1';
             }else{
                 // 处理留言人数据
                 $peopleModel->people_index  = $peopleIndex;

@@ -45,7 +45,7 @@ class ProblemController extends Controller
         // 验证数据
         if($res['msg']=='error') returnResponse(2,$res['data']);
         // 返回成功数据
-        return returnResponse(1,'提问成功',true);
+        return returnResponse(0,'提问成功',true);
     }
 
     /**
