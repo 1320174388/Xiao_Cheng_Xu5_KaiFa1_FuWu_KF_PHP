@@ -36,7 +36,7 @@ class ProblemController extends Controller
         // 判断验证结果返回错误数据
         if($val['msg']=='error') return returnResponse(1,$val['data']);
         // 引入service层代码
-        $res = (new ProblemService())->postValue($data);
+        $res = (new ProblemService())->postValue($request->post());
         // 验证数据
         if($res['msg']=='error') returnResponse(2,$res['data']);
         // 返回成功数据
