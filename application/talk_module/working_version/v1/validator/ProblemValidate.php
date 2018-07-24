@@ -26,9 +26,9 @@ class ProblemValidate
     public function ProblemVerification($data)
     {
         // 判断是否为空
-        if(!$data['peopleName'])     return returnDate('error','请发送提问人名称');
-        if(!$data['leavingTitle'])   return returnDate('error','请输入标题');
-        if(!$data['messageContent']) return returnDate('error','请输入内容');
+        if(!$data['peopleName'])     return returnData('error','请发送提问人名称');
+        if(!$data['leavingTitle'])   return returnData('error','请输入标题');
+        if(!$data['messageContent']) return returnData('error','请输入内容');
 
         // 判断标题
         if(strlen($data['peopleName']) > 50)
