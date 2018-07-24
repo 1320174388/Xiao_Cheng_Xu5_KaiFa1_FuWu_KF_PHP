@@ -30,7 +30,7 @@ Route::group('v1/talk_module/', function(){
      */
     Route::post(
         'replys_route',
-        'talk_module/v1.controller.ReplysController/replysPost'
+        'talk_module/v1.controller.ReplyController/replyPost'
     );
 
 })->middleware('Right_v3_IsAdmin');
