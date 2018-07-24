@@ -26,6 +26,7 @@ class ProblemValidate
     public function ProblemVerification($data)
     {
         // 判断是否为空
+        if(!$data['peopleIndex']) return returnData('error','身份标识获取失败');
         if(!$data['peopleName'])     return returnData('error','请发送提问人名称');
         if(!$data['leavingTitle'])   return returnData('error','请输入标题');
         if(!$data['messageContent']) return returnData('error','请输入内容');
@@ -34,7 +35,7 @@ class ProblemValidate
         if(strlen($data['peopleName']) > 50)
             return returnData('error','标题过长');
         //  判断内容
-        if(strlen($data['messageContent'] > 2000))
+        if(strlen($data['messageContent']) > 2000)
             return returnData('error','内容不能超过2000字');
         // 返回正确格式
         return returnData('success',true);
