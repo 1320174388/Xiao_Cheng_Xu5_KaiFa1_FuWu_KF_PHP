@@ -40,8 +40,7 @@ class ProblemDao implements ProblemInterface
         Db::startTrans();
         try {
             // 查询留言人是否存在
-            $res = (new PeopleModel())
-                    ->where('people_index',$peopleIndex)
+            $res = PeopleModel::where('people_index',$peopleIndex)
                     ->find();
             // 验证
             if($res){
@@ -86,10 +85,12 @@ class ProblemDao implements ProblemInterface
             if(!$messageModel->save())
                 return returnData('error',false);
             // 提交事务
-            Db::commit(); return returnData('success',true);
+            Db::commit();
+            return returnData('success',true);
         } catch (\Exception $e) {
             // 回滚事务
-            Db::rollback(); return returnData('error',false);
+            Db::rollback();
+            return returnData('error',false);
         }
     }
 

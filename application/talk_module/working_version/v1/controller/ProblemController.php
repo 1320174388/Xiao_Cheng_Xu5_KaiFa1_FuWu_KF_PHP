@@ -31,14 +31,9 @@ class ProblemController extends Controller
      */
     public function problemValue(Request $request,$data=[])
     {
-        // 获取所有传值数据s
-        $data['peopleIndex']    = $request->post('peopleIndex');
-        $data['peopleName']     = $request->post('peopleName');
-        $data['peopleSex']      = $request->post('peopleSex');
-        $data['leavingTitle']   = $request->post('leavingTitle');
-        $data['messageContent'] = $request->post('messageContent');
         // 验证数据
-        $val = (new ProblemValidate())->ProblemVerification($data);
+        $val = (new ProblemValidate())->ProblemVerification($request->post());
+        // 判断验证结果返回错误数据
         if($val['msg']=='error') return returnResponse(1,$val['data']);
         // 引入service层代码
         $res = (new ProblemService())->postValue($data);
