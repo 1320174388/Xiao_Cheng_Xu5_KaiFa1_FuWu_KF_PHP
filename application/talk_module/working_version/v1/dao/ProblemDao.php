@@ -33,10 +33,6 @@ class ProblemDao implements ProblemInterface
      */
     public function problemCreate($data)
     {
-        // 实例化留言人/留言/留言信息model类
-        $peopleModel  = new PeopleModel();
-        $leavingModel = new LeavingModel();
-        $messageModel = new MessageModel();
         // 获取/生成标识
         $peopleIndex  = $data['peopleIndex'];
         $leavingIndex = md5(uniqid());
@@ -44,7 +40,7 @@ class ProblemDao implements ProblemInterface
         Db::startTrans();
         try {
             // 查询留言人是否存在
-            $res = $peopleModel
+            $res = (new PeopleModel())
                     ->where('people_index',$peopleIndex)
                     ->find();
             // 验证
@@ -52,17 +48,23 @@ class ProblemDao implements ProblemInterface
                 $res->people_name   = $data['peopleName'];
                 $res->people_sex    = $data['peopleSex'];
                 $res->people_status = '1';
+                // 验证数据
+                if(!$res->save())
+                    return returnData('error',false);
             }else{
+                $peopleModel  = new PeopleModel();
                 // 处理留言人数据
                 $peopleModel->people_index  = $peopleIndex;
                 $peopleModel->people_name   = $data['peopleName'];
                 $peopleModel->people_sex    = $data['peopleSex'];
                 $peopleModel->people_status = '1';
                 $peopleModel->people_time   = time();
+                // 验证数据
+                if(!$peopleModel->save())
+                    return returnData('error',false);
             }
-            // 验证数据
-            if(!$peopleModel->save())
-                return returnData('error',false);
+            // 实例化留言表模型
+            $leavingModel = new LeavingModel();
             // 处理留言数据
             $leavingModel->leaving_index  = $leavingIndex;
             $leavingModel->people_index   = $peopleIndex;
@@ -73,6 +75,8 @@ class ProblemDao implements ProblemInterface
             if(!$leavingModel->save())
                 return returnData('error',false);
 
+            // 实例化留言数据表模型
+            $messageModel = new MessageModel();
             // 处理留言信息数据
             $messageModel->leaving_index    = $leavingIndex;
             $messageModel->message_content  = $data['messageContent'];
