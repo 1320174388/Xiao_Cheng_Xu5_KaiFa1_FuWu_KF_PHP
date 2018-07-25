@@ -28,6 +28,16 @@ Route::group('v1/talk_module/', function(){
 
     // ---- 用户留言 ----
 
+    /**
+     * 路由名称: replys_route
+     * 传值方式: POST
+     * 路由功能: 添加自动回复信息
+     */
+    Route::post(
+        'info_post',
+        'talk_module/v1.controller.InfoController/infoPost'
+    );
+
 });
 
 
