@@ -64,4 +64,42 @@ class ReplyDao implements ReplyInterface
         // 返回正确数据
         return returnData('success',$all);
     }
+
+    /**
+     * 名  称 : replyUpdate()
+     * 功  能 : 修改自动回复数据逻辑
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $put['sessionIndex'] = '信息主键';
+     * 输  入 : (String) $put['sessionName']  = '触发标识';
+     * 输  入 : (String) $put['sessionType']  = '信息类型';
+     * 输  入 : (String) $put['sessionCont']  = '回复内容';
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/25 10:36
+     */
+    public function replyUpdate($put)
+    {
+        // 获取触发标识数据，查看是否存在
+        $data = ReplyModel::where(
+            'session_name',
+            $put['sessionName']
+        )->find();
+        // 验证数据
+        if(($data)&&($put['sessionIndex']!=$data['session_index']))
+        {
+            return returnData('error','问题已经存在');
+        }
+
+        // 获取要修改的数据
+        $reply = ReplyModel::get($put['sessionIndex']);
+        // 处理数据
+        $reply->session_name    = $put['sessionName'];
+        $reply->session_type    = $put['sessionType'];
+        $reply->session_content = $put['sessionCont'];
+        // 执行最终修改
+        $save = $reply->save();
+        // 判断是否保存成功
+        if(!$save) return returnData('error','修改失败');
+        // 返回正确数据
+        return returnData('success','修改成功');
+    }
 }

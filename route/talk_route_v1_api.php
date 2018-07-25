@@ -43,6 +43,15 @@ Route::group('v1/talk_module/', function(){
         'replys_route/:token',
         'talk_module/v1.controller.ReplyController/replyGet'
     );
+    /**
+     * 路由名称: replys_route
+     * 传值方式: PUT
+     * 路由功能: 修改自动回复信息
+     */
+    Route::put(
+        'replys_route/:token',
+        'talk_module/v1.controller.ReplyController/replyPut'
+    );
 
 })->middleware('Right_v3_IsAdmin');
 

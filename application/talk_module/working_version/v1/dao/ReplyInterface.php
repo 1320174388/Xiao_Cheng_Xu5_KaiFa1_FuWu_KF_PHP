@@ -32,4 +32,17 @@ interface ReplyInterface
      * 创  建 : 2018/07/25 10:02
      */
     public function replySelect();
+
+    /**
+     * 名  称 : replyUpdate()
+     * 功  能 : 修改自动回复数据逻辑
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $put['sessionIndex'] = '信息主键';
+     * 输  入 : (String) $put['sessionName']  = '触发标识';
+     * 输  入 : (String) $put['sessionType']  = '信息类型';
+     * 输  入 : (String) $put['sessionCont']  = '回复内容';
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/25 10:36
+     */
+    public function replyUpdate($put);
 }
