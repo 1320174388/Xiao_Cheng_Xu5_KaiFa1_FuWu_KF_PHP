@@ -137,6 +137,7 @@ class InfoDao implements InfoInterface
         // 处理数据
         $formModel->form_index = md5(uniqid().mt_rand(1,999999));
         $formModel->form_id    = $post['adminFormid'];
+        $formModel->form_time  = time();
         // 保存数据
         $res = $formModel->save();
         // 验证数据
