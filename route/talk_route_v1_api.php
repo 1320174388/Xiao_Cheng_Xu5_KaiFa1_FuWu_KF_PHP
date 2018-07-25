@@ -31,7 +31,7 @@ Route::group('v1/talk_module/', function(){
      * 路由功能: 添加自动回复信息
      */
     Route::post(
-        'replys_route',
+        'replys_route/:token',
         'talk_module/v1.controller.ReplyController/replyPost'
     );
     /**
@@ -40,7 +40,7 @@ Route::group('v1/talk_module/', function(){
      * 路由功能: 获取自动回复信息
      */
     Route::get(
-        'replys_route',
+        'replys_route/:token',
         'talk_module/v1.controller.ReplyController/replyGet'
     );
 
