@@ -24,6 +24,13 @@ class ReplyDao implements ReplyInterface
      */
     public function replyCreate($post)
     {
+        // 获取触发标识数据，查看是否存在
+        $data = ReplyModel::where(
+            'session_name',
+            $post['sessionName']
+        )->find();
+        // 验证数据
+        if($data) return returnData('error','问题已经存在');
         // 实例化，数据模型
         $replyModel = new ReplyModel();
         // 处理数据
@@ -35,8 +42,8 @@ class ReplyDao implements ReplyInterface
         // 保存数据
         $res = $replyModel->save();
         // 判断数据是否保存成功
-        if($res['msg']) return returnData('error',false);
+        if($res['msg']) return returnData('error','添加失败');
         // 返回正确数据
-        return returnData('success',true);
+        return returnData('success','添加成功');
     }
 }

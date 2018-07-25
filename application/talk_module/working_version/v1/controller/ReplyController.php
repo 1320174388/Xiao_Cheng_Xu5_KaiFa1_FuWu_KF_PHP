@@ -33,6 +33,6 @@ class ReplyController extends Controller
         // 根据逻辑返回值返回数据,返回错误格式
         if($res['msg']=='error') return returnResponse(1,$res['data']);
         // 返回正确数据
-        return returnResponse(0,$res['data']);
+        return returnResponse(0,$res['data'],true);
     }
 }
