@@ -78,4 +78,24 @@ class ReplyController extends Controller
         // 返回正确数据
         return returnResponse(0,$res['data'],true);
     }
+
+    /**
+     * 名  称 : replyDel()
+     * 功  能 : 修改自动回复信息
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $put['sessionIndex'] = '信息主键';
+     * 输  出 : {"errNum":0,"retMsg":"删除成功","retData":true}
+     * 创  建 : 2018/07/25 11:04
+     */
+    public function replyDel(Request $request)
+    {
+        // 实例化Service逻辑层代码类
+        $replyService = new ReplyService();
+        // 执行删除自动回复信息逻辑,获取逻辑返回值
+        $res = $replyService->replyDel($request->delete());
+        // 根据逻辑返回值返回数据,返回错误格式
+        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        // 返回正确数据
+        return returnResponse(0,$res['data'],true);
+    }
 }

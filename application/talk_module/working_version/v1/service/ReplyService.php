@@ -111,4 +111,33 @@ class ReplyService
         // 返回正确格式
         return returnData('success',$res['data']);
     }
+
+    /**
+     * 名  称 : replyDel()
+     * 功  能 : 删除自动回复信息逻辑
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $delete['sessionIndex'] = '信息主键';
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/25 11:05
+     */
+    public function replyDel($delete)
+    {
+        // 判断是否发送主键信息
+        if(empty($delete['sessionIndex']))
+        {
+            return returnData('error','请发送信息主键');
+        }
+
+        // 实例化ReplyDao层代码
+        $replydao = new Replydao();
+
+        // 执行修改数据逻辑
+        $res = $replydao->replyDelete($delete);
+
+        // 判断返回值，返回错误信息
+        if($res['msg']=='error') return returnData('error',$res['data']);
+
+        // 返回正确格式
+        return returnData('success',$res['data']);
+    }
 }

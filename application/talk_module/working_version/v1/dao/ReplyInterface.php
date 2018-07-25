@@ -45,4 +45,14 @@ interface ReplyInterface
      * 创  建 : 2018/07/25 10:36
      */
     public function replyUpdate($put);
+
+    /**
+     * 名  称 : replyDelete()
+     * 功  能 : 删除自动回复数据逻辑
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $delete['sessionIndex'] = '信息主键';
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/25 10:36
+     */
+    public function replyDelete($delete);
 }
