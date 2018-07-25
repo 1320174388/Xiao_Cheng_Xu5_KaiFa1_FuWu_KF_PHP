@@ -50,7 +50,11 @@ class InfoService
         if($res['msg']=='error') return returnData('error',$res['data']);
 
         // 获取最高管理员openid
-        $user = UserModel::get(1);
+        $userModel = new UserModel();
+        // 加载配置项表信息
+        $userModel->userInit();
+        // 查询用户信息
+        $user = $userModel->where('user_id',1)->find();
 
         // 删除超过一个星期的formid
         FormModel::where(

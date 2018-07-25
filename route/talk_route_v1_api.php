@@ -38,7 +38,7 @@ Route::group('v1/talk_module/', function(){
         'talk_module/v1.controller.InfoController/infoPost'
     );
     /**
-     * 路由名称: replys_route
+     * 路由名称: info_get
      * 传值方式: GET
      * 路由功能: 获取提问信息
      */
