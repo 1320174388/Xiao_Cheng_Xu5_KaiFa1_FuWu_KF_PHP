@@ -8,8 +8,11 @@
  *  历史记录 :  -----------------------
  */
 namespace app\talk_module\working_version\v1\service;
+use app\login_module\working_version\v1\model\UserModel;
+use app\talk_module\working_version\v1\model\FormModel;
 use app\talk_module\working_version\v1\dao\InfoDao;
 use app\talk_module\working_version\v1\validator\ProblemValidate;
+use app\talk_module\working_version\v1\library\PushLibrary;
 
 class InfoService
 {
@@ -45,6 +48,43 @@ class InfoService
 
         // 判断返回值，返回错误信息
         if($res['msg']=='error') return returnData('error',$res['data']);
+
+        // 获取最高管理员openid
+        $user = UserModel::get(1);
+
+        // 删除超过一个星期的formid
+        FormModel::where(
+            'form_time',
+            '<',
+            time()-(60*60*24*7)
+        )->delete();
+
+        // 获取管理员formid
+        $formid = FormModel::order(
+            'form_time',
+            'asc'
+        )->find();
+
+        if($formid){
+            // 处理模板消息数据
+            $data = [
+                'touser'           => $user['user_openid'],
+                'template_id'      => config('wx_config.PushAdmin'),
+                'page'             => '/pages/kefu/adminManage/adminManage',
+                'form_id'          => $formid['form_id'],
+                'data'             => [
+                    'keyword1'=>['value'=>$post['peopleName']],
+                    'keyword2'=>['value'=>$post['leavingTitle']],
+                    'keyword3'=>['value'=>$post['messageCont']],
+                    'keyword4'=>['value'=>date('Y-m-d H:i',time())],
+                ],
+            ];
+
+            // 实例化模板消息推送接口
+            $pushLibrary = new PushLibrary();
+            // 发送模板消息
+            $pushLibrary->sendTemplate($data);
+        }
 
         // 返回正确格式
         return returnData('success',$res['data']);
