@@ -45,4 +45,14 @@ interface InfoInterface
      * 创  建 : 2018/07/24 17:58
      */
     public function adminCreate($post);
+
+    /**
+     * 名  称 : messageSelect()
+     * 功  能 : 获取聊天详细内容
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $get['leavingIndex'] = '提问问题标识';;
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/24 17:58
+     */
+    public function messageSelect($get);
 }

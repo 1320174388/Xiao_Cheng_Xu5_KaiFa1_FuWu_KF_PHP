@@ -78,4 +78,24 @@ class InfoController extends Controller
         // 返回正确数据
         return returnResponse(0,$res['data'],true);
     }
+
+    /**
+     * 名  称 : infoDetails()
+     * 功  能 : 获取聊天详细内容
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $get['leavingIndex'] = '提问问题标识';
+     * 输  出 : {"errNum":0,"retMsg":"请求成功","retData":"数据"}
+     * 创  建 : 2018/07/25 14:54
+     */
+    public function infoDetails(Request $request)
+    {
+        // 实例化Service逻辑层代码类
+        $infoService = new InfoService();
+        // 执行获取自动回复信息逻辑,获取逻辑返回值
+        $res = $infoService->infoDetailsAll($request->get());
+        // 根据逻辑返回值返回数据,返回错误格式
+        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        // 返回正确数据
+        return returnResponse(0,$res['data'],true);
+    }
 }

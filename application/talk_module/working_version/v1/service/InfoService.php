@@ -152,4 +152,32 @@ class InfoService
         // 返回正确格式
         return returnData('success',$res['data']);
     }
+
+    /**
+     * 名  称 : infoDetailsAll()
+     * 功  能 : 获取聊天详细内容
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $get['leavingIndex'] = '提问问题标识';;
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/24 17:58
+     */
+    public function infoDetailsAll($get)
+    {
+        // 判断用户是否发送提问问题标识
+        if(empty($get['leavingIndex'])){
+            return returnData('error','请发送问题标识');
+        }
+
+        // 实例化ReplyDao层代码
+        $replydao = new InfoDao();
+
+        // 执行获取数据逻辑
+        $res = $replydao->messageSelect($get);
+
+        // 判断返回值，返回错误信息
+        if($res['msg']=='error') return returnData('error',$res['data']);
+
+        // 返回正确格式
+        return returnData('success',$res['data']);
+    }
 }

@@ -46,6 +46,15 @@ Route::group('v1/talk_module/', function(){
         'info_get',
         'talk_module/v1.controller.InfoController/infoGet'
     );
+    /**
+     * 路由名称: info_details
+     * 传值方式: GET
+     * 路由功能: 获取提问信息详情
+     */
+    Route::get(
+        'info_details',
+        'talk_module/v1.controller.InfoController/infoDetails'
+    );
 
 });
 
