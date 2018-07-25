@@ -18,6 +18,6 @@ return [
     'MessageTable'  => 'data_session_messages',
     // 留言人信息表
     'PeopleTable'	=> 'data_session_peoples',
-    // 客服回复信息表
+    // 自动回复信息表
     'ReplyTable'	=> 'data_session_replys'
 ];

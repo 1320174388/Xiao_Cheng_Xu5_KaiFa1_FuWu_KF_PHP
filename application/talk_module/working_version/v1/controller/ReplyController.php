@@ -9,6 +9,8 @@
  */
 namespace app\talk_module\working_version\v1\controller;
 use think\Controller;
+use think\Request;
+use app\talk_module\working_version\v1\service\ReplyService;
 
 class ReplyController extends Controller
 {
@@ -16,14 +18,21 @@ class ReplyController extends Controller
      * 名  称 : replyPost()
      * 功  能 : 添加自动回复信息
      * 变  量 : --------------------------------------
-     * 输  入 : (String) $sessionName = '触发标识';
-     * 输  入 : (String) $sessionType = '信息类型';
-     * 输  入 : (String) $sessionName = '回复内容';
+     * 输  入 : (String) $post['sessionName'] = '触发标识';
+     * 输  入 : (String) $post['sessionType'] = '信息类型';
+     * 输  入 : (String) $post['sessionCont'] = '回复内容';
      * 输  出 : {"errNum":0,"retMsg":"添加成功","retData":true}
      * 创  建 : 2018/07/24 17:58
      */
-    public function replyPost()
+    public function replyPost(Request $request)
     {
-        return "<h1>replysPost</h1>";
+        // 实例化Service逻辑层代码类
+        $replyService = new ReplyService();
+        // 执行添加自动回复信息逻辑,获取逻辑返回值
+        $res = $replyService->replyAdd($request->post());
+        // 根据逻辑返回值返回数据,返回错误格式
+        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        // 返回正确数据
+        return returnResponse(0,$res['data']);
     }
 }
