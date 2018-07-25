@@ -20,7 +20,7 @@ class ReplyService
      * 输  入 : (String) $post['sessionName'] = '触发标识';
      * 输  入 : (String) $post['sessionType'] = '信息类型';
      * 输  入 : (String) $post['sessionCont'] = '回复内容';
-     * 输  出 : ['msg'=>'success',''=>'']
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
      * 创  建 : 2018/07/24 17:58
      */
     public function replyAdd($post)
@@ -46,5 +46,28 @@ class ReplyService
         // 返回正确格式
         return returnData('success',$res['data']);
 
+    }
+
+    /**
+     * 名  称 : replyAll()
+     * 功  能 : 获取自动回复信息
+     * 变  量 : --------------------------------------
+     * 输  入 : --------------------------------------
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/07/25 09:59
+     */
+    public function replyAll()
+    {
+        // 实例化ReplyDao层代码
+        $replydao = new Replydao();
+
+        // 执行添加数据逻辑
+        $res = $replydao->replySelect();
+
+        // 判断返回值，返回错误信息
+        if($res['msg']=='error') return returnData('error',$res['data']);
+
+        // 返回正确格式
+        return returnData('success',$res['data']);
     }
 }

@@ -18,8 +18,18 @@ interface ReplyInterface
      * 输  入 : (String) $post['sessionName'] = '触发标识';
      * 输  入 : (String) $post['sessionType'] = '信息类型';
      * 输  入 : (String) $post['sessionCont'] = '回复内容';
-     * 输  出 : ['msg'=>'success','data'=>true]
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
      * 创  建 : 2018/07/24 21:54
      */
     public function replyCreate($post);
+
+    /**
+     * 名  称 : replySelect()
+     * 功  能 : 获取自动回复数据逻辑
+     * 变  量 : --------------------------------------
+     * 输  入 : --------------------------------------
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/25 10:02
+     */
+    public function replySelect();
 }

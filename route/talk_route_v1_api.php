@@ -23,6 +23,8 @@ Route::group('v1/talk_module/', function(){
 // +------------------------------------------------------
 Route::group('v1/talk_module/', function(){
 
+    // ---- 自动回复 ----
+
     /**
      * 路由名称: replys_route
      * 传值方式: POST
@@ -31,6 +33,15 @@ Route::group('v1/talk_module/', function(){
     Route::post(
         'replys_route',
         'talk_module/v1.controller.ReplyController/replyPost'
+    );
+    /**
+     * 路由名称: replys_route
+     * 传值方式: GET
+     * 路由功能: 获取自动回复信息
+     */
+    Route::post(
+        'replys_route',
+        'talk_module/v1.controller.ReplyController/replyGet'
     );
 
 })->middleware('Right_v3_IsAdmin');
