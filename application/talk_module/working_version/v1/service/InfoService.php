@@ -88,6 +88,8 @@ class InfoService
             $pushLibrary = new PushLibrary();
             // 发送模板消息
             $pushLibrary->sendTemplate($data);
+            // 删除formid
+            $formid->delete();
         }
 
         // 返回正确格式
