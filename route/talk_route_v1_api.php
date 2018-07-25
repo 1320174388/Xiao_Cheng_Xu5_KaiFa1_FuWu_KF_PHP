@@ -39,7 +39,7 @@ Route::group('v1/talk_module/', function(){
      * 传值方式: GET
      * 路由功能: 获取自动回复信息
      */
-    Route::post(
+    Route::get(
         'replys_route',
         'talk_module/v1.controller.ReplyController/replyGet'
     );
