@@ -12,7 +12,7 @@ namespace app\talk_module\working_version\v1\dao;
 interface InfoInterface
 {
     /**
-     * 名  称 : problemService()
+     * 名  称 : problemCreate()
      * 功  能 : 添加提问信息逻辑
      * 变  量 : --------------------------------------
      * 输  入 : (String) $post['peopleIndex']  = '用户身份标识';
@@ -23,5 +23,15 @@ interface InfoInterface
      * 输  出 : ['msg'=>'success','data'=>'返回信息']
      * 创  建 : 2018/07/24 17:58
      */
-    public function problemService($post);
+    public function problemCreate($post);
+
+    /**
+     * 名  称 : leavingSelect()
+     * 功  能 : 获取提问信息逻辑
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $get['peopleIndex']  = '用户身份标识';
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/24 17:58
+     */
+    public function leavingSelect($get);
 }

@@ -38,4 +38,24 @@ class InfoController extends Controller
         return returnResponse(0,$res['data'],true);
     }
 
+    /**
+     * 名  称 : infoGet()
+     * 功  能 : 用户获取问题接口
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $get['peopleIndex']  = '用户身份标识';
+     * 输  出 : {"errNum":0,"retMsg":"请求成功","retData":"数据"}
+     * 创  建 : 2018/07/25 14:54
+     */
+    public function infoGet(Request $request)
+    {
+        // 实例化Service逻辑层代码类
+        $infoService = new InfoService();
+        // 执行添加自动回复信息逻辑,获取逻辑返回值
+        $res = $infoService->infoAll($request->get());
+        // 根据逻辑返回值返回数据,返回错误格式
+        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        // 返回正确数据
+        return returnResponse(0,$res['data'],true);
+    }
+
 }

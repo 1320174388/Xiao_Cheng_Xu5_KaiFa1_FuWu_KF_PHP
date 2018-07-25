@@ -40,7 +40,7 @@ class InfoService
         $replydao = new InfoDao();
 
         // 执行添加数据逻辑
-        $res = $replydao->problemService($post);
+        $res = $replydao->problemCreate($post);
 
         // 判断返回值，返回错误信息
         if($res['msg']=='error') return returnData('error',$res['data']);
@@ -48,5 +48,33 @@ class InfoService
         // 返回正确格式
         return returnData('success',$res['data']);
 
+    }
+
+    /**
+     * 名  称 : infoAll()
+     * 功  能 : 获取提问信息逻辑
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $get['peopleIndex']  = '用户身份标识';
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/24 17:58
+     */
+    public function infoAll($get)
+    {
+        // 判断用户是否发送身份标识
+        if(empty($get['peopleIndex'])){
+            return returnData('error','请发送用户身份标识');
+        }
+
+        // 实例化ReplyDao层代码
+        $replydao = new InfoDao();
+
+        // 执行获取数据逻辑
+        $res = $replydao->leavingSelect($get);
+
+        // 判断返回值，返回错误信息
+        if($res['msg']=='error') return returnData('error',$res['data']);
+
+        // 返回正确格式
+        return returnData('success',$res['data']);
     }
 }
