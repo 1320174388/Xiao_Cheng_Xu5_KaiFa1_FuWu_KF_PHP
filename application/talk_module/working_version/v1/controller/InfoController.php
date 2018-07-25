@@ -19,6 +19,7 @@ class InfoController extends Controller
      * 功  能 : 用户添加问题接口
      * 变  量 : --------------------------------------
      * 输  入 : (String) $post['peopleIndex']  = '用户身份标识';
+     * 输  入 : (String) $post['peopleFormid'] = '用户提交表单id';
      * 输  入 : (String) $post['peopleName']   = '用户名称';
      * 输  入 : (String) $post['peopleSex']    = '用户性别';
      * 输  入 : (String) $post['leavingTitle'] = '问题标题';
@@ -58,4 +59,23 @@ class InfoController extends Controller
         return returnResponse(0,$res['data'],true);
     }
 
+    /**
+     * 名  称 : adminPost()
+     * 功  能 : 获取管理员formid
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $post['adminFormid'] = '管理员formid';
+     * 输  出 : {"errNum":0,"retMsg":"添加成功","retData":true}
+     * 创  建 : 2018/07/25 14:54
+     */
+    public function adminPost(Request $request)
+    {
+        // 实例化Service逻辑层代码类
+        $infoService = new InfoService();
+        // 执行添加自动回复信息逻辑,获取逻辑返回值
+        $res = $infoService->adminAdd($request->post());
+        // 根据逻辑返回值返回数据,返回错误格式
+        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        // 返回正确数据
+        return returnResponse(0,$res['data'],true);
+    }
 }

@@ -55,6 +55,18 @@ Route::group('v1/talk_module/', function(){
 // +------------------------------------------------------
 Route::group('v1/talk_module/', function(){
 
+    // ---- 收集管理id ----
+
+    /**
+     * 路由名称: admin_route
+     * 传值方式: POST
+     * 路由功能: 收集管理id
+     */
+    Route::post(
+        'admin_route/:token',
+        'talk_module/v1.controller.InfoController/adminPost'
+    );
+
     // ---- 自动回复 ----
 
     /**

@@ -19,5 +19,7 @@ return [
     // 留言人信息表
     'PeopleTable'	=> 'data_session_peoples',
     // 自动回复信息表
-    'ReplyTable'	=> 'data_session_replys'
+    'ReplyTable'	=> 'data_session_replys',
+    // FormId表
+    'FormTable'     => 'data_admin_formid'
 ];

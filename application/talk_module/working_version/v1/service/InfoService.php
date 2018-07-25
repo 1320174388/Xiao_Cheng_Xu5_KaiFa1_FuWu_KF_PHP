@@ -18,6 +18,7 @@ class InfoService
      * 功  能 : 添加提问信息逻辑
      * 变  量 : --------------------------------------
      * 输  入 : (String) $post['peopleIndex']  = '用户身份标识';
+     * 输  入 : (String) $post['peopleFormid'] = '用户提交表单id';
      * 输  入 : (String) $post['peopleName']   = '用户名称';
      * 输  入 : (String) $post['peopleSex']    = '用户性别';
      * 输  入 : (String) $post['leavingTitle'] = '问题标题';
@@ -70,6 +71,34 @@ class InfoService
 
         // 执行获取数据逻辑
         $res = $replydao->leavingSelect($get);
+
+        // 判断返回值，返回错误信息
+        if($res['msg']=='error') return returnData('error',$res['data']);
+
+        // 返回正确格式
+        return returnData('success',$res['data']);
+    }
+
+    /**
+     * 名  称 : adminAdd()
+     * 功  能 : 获取管理员formid
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $post['adminFormid'] = '管理员formid';
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/24 17:58
+     */
+    public function adminAdd($post)
+    {
+        // 判断用户是否发送身份标识
+        if(empty($post['adminFormid'])){
+            return returnData('error','请发送管理员formid');
+        }
+
+        // 实例化ReplyDao层代码
+        $replydao = new InfoDao();
+
+        // 执行获取数据逻辑
+        $res = $replydao->adminCreate($post);
 
         // 判断返回值，返回错误信息
         if($res['msg']=='error') return returnData('error',$res['data']);

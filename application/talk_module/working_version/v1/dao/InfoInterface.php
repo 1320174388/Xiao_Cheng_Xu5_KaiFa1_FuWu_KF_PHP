@@ -16,6 +16,7 @@ interface InfoInterface
      * 功  能 : 添加提问信息逻辑
      * 变  量 : --------------------------------------
      * 输  入 : (String) $post['peopleIndex']  = '用户身份标识';
+     * 输  入 : (String) $post['peopleFormid'] = '用户提交表单id';
      * 输  入 : (String) $post['peopleName']   = '用户名称';
      * 输  入 : (String) $post['peopleSex']    = '用户性别';
      * 输  入 : (String) $post['leavingTitle'] = '问题标题';
@@ -34,4 +35,14 @@ interface InfoInterface
      * 创  建 : 2018/07/24 17:58
      */
     public function leavingSelect($get);
+
+    /**
+     * 名  称 : adminCreate()
+     * 功  能 : 获取管理员formid
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $post['adminFormid'] = '管理员formid';
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/24 17:58
+     */
+    public function adminCreate($post);
 }

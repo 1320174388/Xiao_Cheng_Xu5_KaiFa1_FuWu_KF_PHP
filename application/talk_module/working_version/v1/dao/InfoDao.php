@@ -12,6 +12,7 @@ use think\Db;
 use app\talk_module\working_version\v1\model\PeopleModel;
 use app\talk_module\working_version\v1\model\LeavingModel;
 use app\talk_module\working_version\v1\model\MessageModel;
+use app\talk_module\working_version\v1\model\FormModel;
 
 class InfoDao implements InfoInterface
 {
@@ -20,6 +21,7 @@ class InfoDao implements InfoInterface
      * 功  能 : 添加提问信息逻辑
      * 变  量 : --------------------------------------
      * 输  入 : (String) $post['peopleIndex']  = '用户身份标识';
+     * 输  入 : (String) $post['peopleFormid'] = '用户提交表单id';
      * 输  入 : (String) $post['peopleName']   = '用户名称';
      * 输  入 : (String) $post['peopleSex']    = '用户性别';
      * 输  入 : (String) $post['leavingTitle'] = '问题标题';
@@ -43,6 +45,7 @@ class InfoDao implements InfoInterface
                 $user->people_name   = $post['peopleName'];
                 $user->people_sex    = $post['peopleSex'];
                 $user->people_status = 1;
+                $user->people_formid = $post['peopleFormid'];
                 // 执行写入数据
                 $user->save();
             } else {
@@ -54,6 +57,7 @@ class InfoDao implements InfoInterface
                 $peopleModel->people_sex    = $post['peopleSex'];
                 $peopleModel->people_status = 1;
                 $peopleModel->people_time   = time();
+                $peopleModel->people_formid = $post['peopleFormid'];
                 // 保存数据
                 $peopleModel->save();
             }
@@ -116,5 +120,28 @@ class InfoDao implements InfoInterface
         if(!$data) return returnData('error','没有数据');
         // 返回正确数据
         return returnData('success',$data);
+    }
+
+    /**
+     * 名  称 : adminCreate()
+     * 功  能 : 获取管理员formid
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $post['adminFormid'] = '管理员formid';
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/24 17:58
+     */
+    public function adminCreate($post)
+    {
+        // 实例化模型
+        $formModel = new FormModel();
+        // 处理数据
+        $formModel->form_index = md5(uniqid().mt_rand(1,999999));
+        $formModel->form_id    = $post['adminFormid'];
+        // 保存数据
+        $res = $formModel->save();
+        // 验证数据
+        if(!$res) return returnData('error','保存失败');
+        // 返回正确数据
+        return returnData('success','保存成功');
     }
 }
