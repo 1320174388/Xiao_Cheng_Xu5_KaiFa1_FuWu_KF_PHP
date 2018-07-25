@@ -7,7 +7,7 @@
  *  文件描述 :  自动回复信息表
  *  历史记录 :  -----------------------
  */
-namespace app\talk_module\working_version\v1\ReplyModel;
+namespace app\talk_module\working_version\v1\Model;
 use think\Model;
 
 class ReplyModel extends Model
