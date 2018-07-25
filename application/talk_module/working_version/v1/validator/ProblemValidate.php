@@ -24,6 +24,7 @@ class ProblemValidate extends Validate
      */
     protected $rule = [
         'peopleIndex'  => 'require|min:32|max:32',
+        'peopleFormid' => 'require',
         'peopleName'   => 'require',
         'peopleSex'    => 'require|min:1|max:1',
         'leavingTitle' => 'require|min:2|max:12',
@@ -38,6 +39,7 @@ class ProblemValidate extends Validate
         'peopleIndex.require'  => '请正确发送用户身份标识',
         'peopleIndex.min'      => '请正确发送用户身份标识',
         'peopleIndex.max'      => '请正确发送用户身份标识',
+        'peopleFormid.require' => '请发送用户表单FormId',
         'peopleName.require'   => '请发送用户名称',
         'peopleSex.require'    => '请正确发送用户性别信息',
         'peopleSex.min'        => '请正确发送用户性别信息',

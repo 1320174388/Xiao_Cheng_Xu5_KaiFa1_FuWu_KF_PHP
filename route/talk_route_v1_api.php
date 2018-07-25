@@ -37,7 +37,6 @@ Route::group('v1/talk_module/', function(){
         'info_post',
         'talk_module/v1.controller.InfoController/infoPost'
     );
-
     /**
      * 路由名称: replys_route
      * 传值方式: GET
@@ -47,6 +46,7 @@ Route::group('v1/talk_module/', function(){
         'info_get',
         'talk_module/v1.controller.InfoController/infoGet'
     );
+
 });
 
 
