@@ -23,7 +23,7 @@ Route::group('v1/talk_module/', function(){
      */
     Route::get(
         'replys_list',
-        'talk_module/v1.controller.ReplyController/replyPost'
+        'talk_module/v1.controller.ReplyController/replyGet'
     );
 
     // ---- 用户留言 ----
