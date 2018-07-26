@@ -15,17 +15,16 @@ class LeavingValidate extends Validate
     /**
      * 名  称 : $rule => '静态属性'
      * 功  能 : 定义验证规则
-     * 输  入 : (String) $post['peopleIndex']  = '用户身份标识';
-     * 输  入 : (String) $post['peopleName']   = '用户名称';
-     * 输  入 : (String) $post['peopleSex']    = '用户性别';
-     * 输  入 : (String) $post['leavingTitle'] = '问题标题';
-     * 输  入 : (String) $post['messageCont']  = '问题内容';
+     * 输  入 : (String) $post['peopleIndex']  => '用户身份标识';
+     * 输  入 : (String) $post['peopleFormid'] => '用户提交表单id';
+     * 输  入 : (String) $post['leavingIndex'] => '问题标识';
+     * 输  入 : (String) $post['messageCont']  => '问题内容';
      * 创  建 : 2018/07/24 21:20
      */
     protected $rule = [
         'peopleIndex'  => 'require|min:32|max:32',
+        'leavingIndex' => 'require|min:32|max:32',
         'peopleFormid' => 'require',
-        'leavingTitle' => 'require|min:2|max:12',
         'messageCont'  => 'require|max:1000',
     ];
     /**
@@ -37,10 +36,10 @@ class LeavingValidate extends Validate
         'peopleIndex.require'  => '请正确发送用户身份标识',
         'peopleIndex.min'      => '请正确发送用户身份标识',
         'peopleIndex.max'      => '请正确发送用户身份标识',
+        'leavingIndex.require' => '请正确发送问题标识',
+        'leavingIndex.min'     => '请正确发送问题标识',
+        'leavingIndex.max'     => '请正确发送问题标识',
         'peopleFormid.require' => '请发送用户表单FormId',
-        'leavingTitle.require' => '请输入2~12个字的问题',
-        'leavingTitle.min'     => '请输入2~12个字的问题',
-        'leavingTitle.max'     => '请输入2~12个字的问题',
         'messageCont.require'  => '请输入不超过1000字的回复内容',
         'messageCont.max'      => '请输入不超过1000字的回复内容',
     ];
