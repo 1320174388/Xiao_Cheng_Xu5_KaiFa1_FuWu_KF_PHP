@@ -141,4 +141,25 @@ class InfoController extends Controller
         // 返回正确数据
         return returnResponse(0,$res['data'],true);
     }
+
+    /**
+     * 名  称 : adminReply()
+     * 功  能 : 客服回复用户信息接口
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $post['leavingIndex'] => '问题标识';
+     * 输  入 : (String) $post['messageCont']  => '问题内容';
+     * 输  出 : {"errNum":0,"retMsg":"回复成功","retData":}
+     * 创  建 : 2018/07/26 19:22
+     */
+    public function adminReply(Request $request)
+    {
+        // 实例化Service逻辑层代码类
+        $infoService = new InfoService();
+        // 执行添加客服回复信息
+        $res = $infoService->sessionAdd($request->post());
+        // 根据逻辑返回值返回数据,返回错误格式
+        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        // 返回正确数据
+        return returnResponse(0,$res['data'],true);
+    }
 }

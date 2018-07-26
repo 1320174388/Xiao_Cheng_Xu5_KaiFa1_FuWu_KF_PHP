@@ -78,4 +78,15 @@ interface InfoInterface
      * 创  建 : 2018/07/26 18:51
      */
     public function peopleSelect();
+
+    /**
+     * 名  称 : sessionCreate()
+     * 功  能 : 客服回复用户信息接口
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $post['leavingIndex'] => '问题标识';
+     * 输  入 : (String) $post['messageCont']  => '问题内容';
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/26 19:22
+     */
+    public function sessionCreate($post);
 }

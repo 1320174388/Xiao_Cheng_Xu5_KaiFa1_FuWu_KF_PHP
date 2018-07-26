@@ -20,4 +20,6 @@ return [
     'wx_Push_Url' => 'https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send',
     // 用户咨询提醒 模板ID
     'PushAdmin' => '2TClx65vfpA8kqwEexw7J0fARev0bSm0Tvi3TQe4U_8',
+    // 客服回复通知 模板ID
+    'PushUser' => 'zUQUZD35j34JXneQA64RcRUGfT3Zex2tVnhOrddhGQA',
 ];

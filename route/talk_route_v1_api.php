@@ -85,6 +85,18 @@ Route::group('v1/talk_module/', function(){
         'talk_module/v1.controller.InfoController/userGet'
     );
 
+    // ---- 回复信息 ----
+
+    /**
+     * 路由名称: admin_reply
+     * 传值方式: POST
+     * 路由功能: 客服回复用户信息接口
+     */
+    Route::post(
+        'admin_reply/:token',
+        'talk_module/v1.controller.InfoController/adminReply'
+    );
+
     // ---- 收集管理id ----
 
     /**

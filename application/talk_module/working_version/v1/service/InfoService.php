@@ -13,6 +13,7 @@ use app\talk_module\working_version\v1\model\FormModel;
 use app\talk_module\working_version\v1\dao\InfoDao;
 use app\talk_module\working_version\v1\validator\ProblemValidate;
 use app\talk_module\working_version\v1\validator\LeavingValidate;
+use app\talk_module\working_version\v1\validator\SessionValidate;
 use app\talk_module\working_version\v1\library\PushLibrary;
 
 class InfoService
@@ -34,7 +35,6 @@ class InfoService
     {
         // 实例化验证器，验证数据是否正确
         $validate = new ProblemValidate();
-
         // 判断数据是否正确,返回错误数据
         if(!$validate->check($post))
         {
@@ -43,10 +43,8 @@ class InfoService
 
         // 实例化ReplyDao层代码
         $replydao = new InfoDao();
-
         // 执行添加数据逻辑
         $res = $replydao->problemCreate($post);
-
         // 判断返回值，返回错误信息
         if($res['msg']=='error') return returnData('error',$res['data']);
 
@@ -84,7 +82,6 @@ class InfoService
                     'keyword4'=>['value'=>date('Y-m-d H:i',time())],
                 ],
             ];
-
             // 实例化模板消息推送接口
             $pushLibrary = new PushLibrary();
             // 发送模板消息
@@ -92,7 +89,6 @@ class InfoService
             // 删除formid
             $formid->delete();
         }
-
         // 返回正确格式
         return returnData('success',$res['data']);
 
@@ -112,16 +108,12 @@ class InfoService
         if(empty($get['peopleIndex'])){
             return returnData('error','请发送用户身份标识');
         }
-
         // 实例化InfoDao层代码
         $replydao = new InfoDao();
-
         // 执行获取数据逻辑
         $res = $replydao->leavingSelect($get);
-
         // 判断返回值，返回错误信息
         if($res['msg']=='error') return returnData('error',$res['data']);
-
         // 返回正确格式
         return returnData('success',$res['data']);
     }
@@ -140,16 +132,12 @@ class InfoService
         if(empty($post['adminFormid'])){
             return returnData('error','请发送管理员formid');
         }
-
         // 实例化InfoDao层代码
         $replydao = new InfoDao();
-
         // 执行获取数据逻辑
         $res = $replydao->adminCreate($post);
-
         // 判断返回值，返回错误信息
         if($res['msg']=='error') return returnData('error',$res['data']);
-
         // 返回正确格式
         return returnData('success',$res['data']);
     }
@@ -168,16 +156,12 @@ class InfoService
         if(empty($get['leavingIndex'])){
             return returnData('error','请发送问题标识');
         }
-
         // 实例化InfoDao层代码
         $replydao = new InfoDao();
-
         // 执行获取数据逻辑
         $res = $replydao->messageSelect($get);
-
         // 判断返回值，返回错误信息
         if($res['msg']=='error') return returnData('error',$res['data']);
-
         // 返回正确格式
         return returnData('success',$res['data']);
     }
@@ -197,7 +181,6 @@ class InfoService
     {
         // 实例化验证器，验证数据是否正确
         $validate = new LeavingValidate();
-
         // 判断数据是否正确,返回错误数据
         if(!$validate->check($post))
         {
@@ -206,10 +189,8 @@ class InfoService
 
         // 实例化InfoDao层代码
         $replydao = new InfoDao();
-
         // 执行添加数据逻辑
         $res = $replydao->leavingCreate($post);
-
         // 判断返回值，返回错误信息
         if($res['msg']=='error') return returnData('error',$res['data']);
 
@@ -247,7 +228,6 @@ class InfoService
                     'keyword4'=>['value'=>date('Y-m-d H:i',time())],
                 ],
             ];
-
             // 实例化模板消息推送接口
             $pushLibrary = new PushLibrary();
             // 发送模板消息
@@ -273,14 +253,67 @@ class InfoService
     {
         // 实例化InfoDao层代码
         $replydao = new InfoDao();
-
         // 执行获取数据逻辑
         $res = $replydao->peopleSelect();
+        // 判断返回值，返回错误信息
+        if($res['msg']=='error') return returnData('error',$res['data']);
+        // 返回正确格式
+        return returnData('success',$res['data']);
+    }
 
+    /**
+     * 名  称 : sessionAdd()
+     * 功  能 : 客服回复用户信息
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $post['leavingIndex'] => '问题标识';
+     * 输  入 : (String) $post['messageCont']  => '问题内容';
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/26 19:57
+     */
+    public function sessionAdd($post)
+    {
+        // 实例化验证器，验证数据是否正确
+        $validate = new SessionValidate();
+        // 判断数据是否正确,返回错误数据
+        if(!$validate->check($post))
+        {
+            return returnData('error',$validate->getError());
+        }
+
+        // 实例化InfoDao层代码
+        $replydao = new InfoDao();
+        // 执行添加数据逻辑
+        $res = $replydao->sessionCreate($post);
         // 判断返回值，返回错误信息
         if($res['msg']=='error') return returnData('error',$res['data']);
 
+        // 获取最高管理员openid
+        $userModel = new UserModel();
+        // 加载配置项表信息
+        $userModel->userInit();
+        // 查询用户信息
+        $user = $userModel->where(
+            'user_token',
+            $res['data']['user']['people_index']
+            )->find();
+
+        // 处理模板消息数据
+        $data = [
+            'touser'           => $user['user_openid'],
+            'template_id'      => config('wx_config.PushUser'),
+            'page'             => '/pages/kefu/ask/ask',
+            'form_id'          => $res['data']['user']['people_formid'],
+            'data'             => [
+                'keyword1'=>['value'=>$res['data']['leav']['leaving_handle']],
+                'keyword2'=>['value'=>$post['messageCont']],
+                'keyword3'=>['value'=>date('Y-m-d H:i',time())],
+            ],
+        ];
+        // 实例化模板消息推送接口
+        $pushLibrary = new PushLibrary();
+        // 发送模板消息
+        $pushLibrary->sendTemplate($data);
         // 返回正确格式
-        return returnData('success',$res['data']);
+        return returnData('success','回复成功');
     }
 }

@@ -47,7 +47,7 @@ class ProblemValidate extends Validate
         'leavingTitle.require' => '请输入2~12个字的问题',
         'leavingTitle.min'     => '请输入2~12个字的问题',
         'leavingTitle.max'     => '请输入2~12个字的问题',
-        'messageCont.require'  => '请输入不超过1000字的回复内容',
-        'messageCont.max'      => '请输入不超过1000字的回复内容',
+        'messageCont.require'  => '请输入不超过1000字的问题内容',
+        'messageCont.max'      => '请输入不超过1000字的问题内容',
     ];
 }

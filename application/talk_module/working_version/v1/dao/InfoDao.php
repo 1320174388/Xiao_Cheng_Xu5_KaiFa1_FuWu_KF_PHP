@@ -255,4 +255,65 @@ class InfoDao implements InfoInterface
         // 返回正确数据
         return returnData('success',$userList);
     }
+
+    /**
+     * 名  称 : sessionCreate()
+     * 功  能 : 客服回复用户信息接口
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $post['leavingIndex'] => '问题标识';
+     * 输  入 : (String) $post['messageCont']  => '问题内容';
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/26 19:22
+     */
+    public function sessionCreate($post)
+    {
+        // 启动事务
+        Db::startTrans();
+        try{
+            // 获取当先聊天数据条数
+            $messageNum = MessageModel::where(
+                'leaving_index',
+                $post['leavingIndex']
+            )->count();
+
+            // 获取问题数据
+            $leav = LeavingModel::get($post['leavingIndex']);
+            // 修改信息状态
+            $leav->leaving_status = 2;
+            $leav->leaving_handle = '楠枫美林客服';
+            // 保存
+            $leav->save();
+
+            // 获取留言人信息
+            $user = PeopleModel::where(
+                'people_index',
+                $leav['people_index']
+            )->find();
+            // 处理数据格式
+            $user->people_status = 2;
+            // 执行写入数据
+            $user->save();
+
+            // 实例化留言信息内容模型
+            $messageModel = new MessageModel();
+            // 生成信息内容主键信息
+            $messageIndex = md5(uniqid().mt_rand(1,999999));
+            // 处理数据
+            $messageModel->message_index    = $messageIndex;
+            $messageModel->leaving_index    = $post['leavingIndex'];
+            $messageModel->message_content  = $post['messageCont'];
+            $messageModel->message_identity = 'Admin';
+            $messageModel->message_sort     = $messageNum+1;
+            // 保存数据
+            $messageModel->save();
+
+            // 提交事务
+            Db::commit();
+            return returnData('success',['user'=>$user,'leav'=>$leav]);
+        } catch (\Exception $e) {
+            // 回滚事务
+            Db::rollback();
+            return returnData('error','回复失败');
+        }
+    }
 }
