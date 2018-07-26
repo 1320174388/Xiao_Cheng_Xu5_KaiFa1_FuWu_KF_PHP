@@ -257,7 +257,7 @@ class InfoService
         }
 
         // 返回正确格式
-        return returnData('success',$res['data']);
+        return returnData('success','提交成功');
 
     }
 }
