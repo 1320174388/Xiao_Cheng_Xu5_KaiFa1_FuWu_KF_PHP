@@ -207,6 +207,10 @@ class InfoDao implements InfoInterface
 
             // 获取问题数据
             $leav = LeavingModel::get($post['leavingIndex']);
+            // 修改信息状态
+            $leav->leaving_status = 1;
+            // 保存
+            $leav->save();
 
             // 实例化留言信息内容模型
             $messageModel = new MessageModel();
