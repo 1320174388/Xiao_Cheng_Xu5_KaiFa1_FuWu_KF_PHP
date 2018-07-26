@@ -55,4 +55,17 @@ interface InfoInterface
      * 创  建 : 2018/07/24 17:58
      */
     public function messageSelect($get);
+
+    /**
+     * 名  称 : leavingCreate()
+     * 功  能 : 用户继续提问信息接口
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $post['peopleIndex']  => '用户身份标识';
+     * 输  入 : (String) $post['peopleFormid'] => '用户提交表单id';
+     * 输  入 : (String) $post['leavingIndex'] => '问题标识';
+     * 输  入 : (String) $post['messageCont']  => '问题内容';
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/24 17:58
+     */
+    public function leavingCreate($post);
 }

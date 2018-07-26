@@ -98,4 +98,27 @@ class InfoController extends Controller
         // 返回正确数据
         return returnResponse(0,$res['data'],true);
     }
+
+    /**
+     * 名  称 : infoDoPost()
+     * 功  能 : 用户继续提问信息处理
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $post['peopleIndex']  => '用户身份标识';
+     * 输  入 : (String) $post['peopleFormid'] => '用户提交表单id';
+     * 输  入 : (String) $post['leavingIndex'] => '问题标识';
+     * 输  入 : (String) $post['messageCont']  => '问题内容';
+     * 输  出 : {"errNum":0,"retMsg":"提交成功","retData":true}
+     * 创  建 : 2018/07/26 16:39
+     */
+    public function infoDoPost(Request $request)
+    {
+        // 实例化Service逻辑层代码类
+        $infoService = new InfoService();
+        // 执行添加用户再次提问信息接口
+        $res = $infoService->infoDoAdd($request->post());
+        // 根据逻辑返回值返回数据,返回错误格式
+        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        // 返回正确数据
+        return returnResponse(0,$res['data'],true);
+    }
 }

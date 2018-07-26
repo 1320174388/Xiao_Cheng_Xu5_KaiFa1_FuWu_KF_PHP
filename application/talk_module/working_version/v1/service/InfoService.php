@@ -12,6 +12,7 @@ use app\login_module\working_version\v1\model\UserModel;
 use app\talk_module\working_version\v1\model\FormModel;
 use app\talk_module\working_version\v1\dao\InfoDao;
 use app\talk_module\working_version\v1\validator\ProblemValidate;
+use app\talk_module\working_version\v1\validator\LeavingValidate;
 use app\talk_module\working_version\v1\library\PushLibrary;
 
 class InfoService
@@ -112,7 +113,7 @@ class InfoService
             return returnData('error','请发送用户身份标识');
         }
 
-        // 实例化ReplyDao层代码
+        // 实例化InfoDao层代码
         $replydao = new InfoDao();
 
         // 执行获取数据逻辑
@@ -140,7 +141,7 @@ class InfoService
             return returnData('error','请发送管理员formid');
         }
 
-        // 实例化ReplyDao层代码
+        // 实例化InfoDao层代码
         $replydao = new InfoDao();
 
         // 执行获取数据逻辑
@@ -168,7 +169,7 @@ class InfoService
             return returnData('error','请发送问题标识');
         }
 
-        // 实例化ReplyDao层代码
+        // 实例化InfoDao层代码
         $replydao = new InfoDao();
 
         // 执行获取数据逻辑
@@ -179,5 +180,41 @@ class InfoService
 
         // 返回正确格式
         return returnData('success',$res['data']);
+    }
+
+    /**
+     * 名  称 : infoDoAdd()
+     * 功  能 : 用户继续提问信息处理
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $post['peopleIndex']  => '用户身份标识';
+     * 输  入 : (String) $post['peopleFormid'] => '用户提交表单id';
+     * 输  入 : (String) $post['leavingIndex'] => '问题标识';
+     * 输  入 : (String) $post['messageCont']  => '问题内容';
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/24 17:58
+     */
+    public function infoDoAdd($post)
+    {
+        // 实例化验证器，验证数据是否正确
+        $validate = new LeavingValidate();
+
+        // 判断数据是否正确,返回错误数据
+        if(!$validate->check($post))
+        {
+            return returnData('error',$validate->getError());
+        }
+
+        // 实例化InfoDao层代码
+        $replydao = new InfoDao();
+
+        // 执行添加数据逻辑
+        $res = $replydao->leavingCreate($post);
+
+        // 判断返回值，返回错误信息
+        if($res['msg']=='error') return returnData('error',$res['data']);
+
+        // 返回正确格式
+        return returnData('success',$res['data']);
+
     }
 }

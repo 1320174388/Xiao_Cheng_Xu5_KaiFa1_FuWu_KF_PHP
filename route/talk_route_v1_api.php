@@ -55,6 +55,15 @@ Route::group('v1/talk_module/', function(){
         'info_details',
         'talk_module/v1.controller.InfoController/infoDetails'
     );
+    /**
+     * 路由名称: info_do_post
+     * 传值方式: POST
+     * 路由功能: 用户继续提问接口
+     */
+    Route::post(
+        'info_do_post',
+        'talk_module/v1.controller.InfoController/infoDoPost'
+    );
 
 });
 

@@ -166,4 +166,62 @@ class InfoDao implements InfoInterface
         // 返回正确数据
         return returnData('success',$list);
     }
+
+    /**
+     * 名  称 : leavingCreate()
+     * 功  能 : 用户继续提问信息接口
+     * 变  量 : --------------------------------------
+     * 输  入 : (String) $post['peopleIndex']  => '用户身份标识';
+     * 输  入 : (String) $post['peopleFormid'] => '用户提交表单id';
+     * 输  入 : (String) $post['leavingIndex'] => '问题标识';
+     * 输  入 : (String) $post['messageCont']  => '问题内容';
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/24 17:58
+     */
+    public function leavingCreate($post)
+    {
+        // 启动事务
+        Db::startTrans();
+        try{
+
+            // 判断留言人是否已有留言
+            $user = PeopleModel::where(
+                'people_index',
+                $post['peopleIndex']
+            )->find();
+
+            // 处理数据格式
+            $user->people_status = 1;
+            $user->people_formid = $post['peopleFormid'];
+            // 执行写入数据
+            $user->save();
+
+            // 获取当先聊天数据条数
+            $messageNum = MessageModel::where(
+                'leaving_index',
+                $post['leavingIndex']
+            )->count();
+
+            // 实例化留言信息内容模型
+            $messageModel = new MessageModel();
+            // 生成信息内容主键信息
+            $messageIndex = md5(uniqid().mt_rand(1,999999));
+            // 处理数据
+            $messageModel->message_index    = $messageIndex;
+            $messageModel->leaving_index    = $post['leavingIndex'];
+            $messageModel->message_content  = $post['messageCont'];
+            $messageModel->message_identity = 'User';
+            $messageModel->message_sort     = $messageNum+1;
+            // 保存数据
+            $messageModel->save();
+
+            // 提交事务
+            Db::commit();
+            return returnData('success','提交成功');
+        } catch (\Exception $e) {
+            // 回滚事务
+            Db::rollback();
+            return returnData('error','提交失败');
+        }
+    }
 }
