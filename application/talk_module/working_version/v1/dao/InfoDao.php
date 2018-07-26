@@ -160,6 +160,9 @@ class InfoDao implements InfoInterface
         $list = MessageModel::where(
             'leaving_index',
             $get['leavingIndex']
+        )->order(
+            'message_sort',
+            'asc'
         )->select();
         // 判断是否有数据
         if(!$list) return returnData('error','数据获取失败');
