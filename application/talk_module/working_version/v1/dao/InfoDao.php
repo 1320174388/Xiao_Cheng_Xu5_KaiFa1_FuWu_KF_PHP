@@ -230,4 +230,25 @@ class InfoDao implements InfoInterface
             return returnData('error','提交失败');
         }
     }
+
+    /**
+     * 名  称 : peopleSelect()
+     * 功  能 : 获取所有用户信息
+     * 变  量 : --------------------------------------
+     * 输  入 : --------------------------------------
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/26 18:51
+     */
+    public function peopleSelect()
+    {
+        // 获取所有用户数据
+        $userList = PeopleModel::order(
+            'people_status',
+            'asc'
+        )->select();
+        // 判断是否回去到数据
+        if(!$userList) return returnData('error','当前没有用户提问');
+        // 返回正确数据
+        return returnData('success',$userList);
+    }
 }

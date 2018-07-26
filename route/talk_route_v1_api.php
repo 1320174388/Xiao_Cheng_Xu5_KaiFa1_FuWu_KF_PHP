@@ -73,6 +73,18 @@ Route::group('v1/talk_module/', function(){
 // +------------------------------------------------------
 Route::group('v1/talk_module/', function(){
 
+    // ---- 用户信息 ----
+
+    /**
+     * 路由名称: user_route
+     * 传值方式: GET
+     * 路由功能: 获取所有用户信息
+     */
+    Route::get(
+        'user_route/:token',
+        'talk_module/v1.controller.InfoController/userGet'
+    );
+
     // ---- 收集管理id ----
 
     /**

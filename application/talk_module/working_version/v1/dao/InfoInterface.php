@@ -68,4 +68,14 @@ interface InfoInterface
      * 创  建 : 2018/07/24 17:58
      */
     public function leavingCreate($post);
+
+    /**
+     * 名  称 : peopleSelect()
+     * 功  能 : 获取所有用户信息
+     * 变  量 : --------------------------------------
+     * 输  入 : --------------------------------------
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/26 18:51
+     */
+    public function peopleSelect();
 }

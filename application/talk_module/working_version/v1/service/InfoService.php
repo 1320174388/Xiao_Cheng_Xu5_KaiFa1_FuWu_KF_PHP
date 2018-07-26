@@ -260,4 +260,27 @@ class InfoService
         return returnData('success','提交成功');
 
     }
+
+    /**
+     * 名  称 : userAll()
+     * 功  能 : 获取所有用户信息
+     * 变  量 : --------------------------------------
+     * 输  入 : --------------------------------------
+     * 输  出 : ['msg'=>'success','data'=>'返回信息']
+     * 创  建 : 2018/07/26 18:51
+     */
+    public function userAll()
+    {
+        // 实例化InfoDao层代码
+        $replydao = new InfoDao();
+
+        // 执行获取数据逻辑
+        $res = $replydao->peopleSelect();
+
+        // 判断返回值，返回错误信息
+        if($res['msg']=='error') return returnData('error',$res['data']);
+
+        // 返回正确格式
+        return returnData('success',$res['data']);
+    }
 }
