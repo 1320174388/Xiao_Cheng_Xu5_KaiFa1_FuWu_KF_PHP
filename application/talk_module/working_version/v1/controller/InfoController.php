@@ -148,7 +148,7 @@ class InfoController extends Controller
      * 变  量 : --------------------------------------
      * 输  入 : (String) $post['leavingIndex'] => '问题标识';
      * 输  入 : (String) $post['messageCont']  => '问题内容';
-     * 输  出 : {"errNum":0,"retMsg":"回复成功","retData":}
+     * 输  出 : {"errNum":0,"retMsg":"回复成功","retData":true}
      * 创  建 : 2018/07/26 19:22
      */
     public function adminReply(Request $request)
