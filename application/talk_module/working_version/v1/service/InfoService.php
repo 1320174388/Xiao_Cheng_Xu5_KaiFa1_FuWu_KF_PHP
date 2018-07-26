@@ -213,6 +213,49 @@ class InfoService
         // 判断返回值，返回错误信息
         if($res['msg']=='error') return returnData('error',$res['data']);
 
+        // 获取最高管理员openid
+        $userModel = new UserModel();
+        // 加载配置项表信息
+        $userModel->userInit();
+        // 查询用户信息
+        $user = $userModel->where('user_id',1)->find();
+
+        // 删除超过一个星期的formid
+        FormModel::where(
+            'form_time',
+            '<',
+            time()-(60*60*24*7)
+        )->delete();
+
+        // 获取管理员formid
+        $formid = FormModel::order(
+            'form_time',
+            'asc'
+        )->find();
+
+        if($formid){
+            // 处理模板消息数据
+            $data = [
+                'touser'           => $user['user_openid'],
+                'template_id'      => config('wx_config.PushAdmin'),
+                'page'             => '/pages/kefu/adminManage/adminManage',
+                'form_id'          => $formid['form_id'],
+                'data'             => [
+                    'keyword1'=>['value'=>$res['data']['user']['people_name']],
+                    'keyword2'=>['value'=>$res['data']['leav']['leaving_title']],
+                    'keyword3'=>['value'=>$post['messageCont']],
+                    'keyword4'=>['value'=>date('Y-m-d H:i',time())],
+                ],
+            ];
+
+            // 实例化模板消息推送接口
+            $pushLibrary = new PushLibrary();
+            // 发送模板消息
+            $pushLibrary->sendTemplate($data);
+            // 删除formid
+            $formid->delete();
+        }
+
         // 返回正确格式
         return returnData('success',$res['data']);
 

@@ -205,6 +205,9 @@ class InfoDao implements InfoInterface
                 $post['leavingIndex']
             )->count();
 
+            // 获取问题数据
+            $leav = LeavingModel::get($post['leavingIndex']);
+
             // 实例化留言信息内容模型
             $messageModel = new MessageModel();
             // 生成信息内容主键信息
@@ -220,7 +223,7 @@ class InfoDao implements InfoInterface
 
             // 提交事务
             Db::commit();
-            return returnData('success','提交成功');
+            return returnData('success',['user'=>$user,'leav'=>$leav]);
         } catch (\Exception $e) {
             // 回滚事务
             Db::rollback();
